@@ -1,15 +1,19 @@
 
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, FileText, Activity, Droplet, Zap, Award, SquareCheck, CheckCircle } from 'lucide-react';
-import AnimateOnScroll from '@/components/AnimateOnScroll';
 import ServiceCard from '@/components/ServiceCard';
 import PriceCard from '@/components/PriceCard';
 import ReviewCard from '@/components/ReviewCard';
 import CallToAction from '@/components/CallToAction';
 import StepProcess from '@/components/StepProcess';
-import { cn } from '@/lib/utils';
+import ParallaxHero from '@/components/ParallaxHero';
+import AnimatedSection from '@/components/AnimatedSection';
+import IntroLoader from '@/components/IntroLoader';
 
 const HomePage = () => {
+  const [introCompleted, setIntroCompleted] = useState(false);
+  
   const serviceItems = [
     {
       title: 'Bygglovsritningar',
@@ -155,166 +159,105 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Intro Loader */}
+      <IntroLoader onComplete={() => setIntroCompleted(true)} />
+      
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ 
-            backgroundImage: 'url(https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80)',
-            backgroundPosition: 'center',
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
-        
-        <div className="container mx-auto px-4 relative z-10 mt-[-100px]">
-          <div className="max-w-2xl mx-auto text-center text-white">
-            <AnimateOnScroll animation="fade-in">
-              <span className="inline-block bg-brand-500 text-white px-4 py-1 rounded-full text-sm font-medium mb-6">
-                Söker du bygglov?
-              </span>
-            </AnimateOnScroll>
-            
-            <AnimateOnScroll animation="slide-up" delay={200}>
-              <h1 className="text-5xl md:text-6xl font-display font-bold mb-6 leading-tight">
-                Din dröm. Våra ritningar.
-              </h1>
-            </AnimateOnScroll>
-            
-            <AnimateOnScroll animation="slide-up" delay={400}>
-              <p className="text-xl md:text-2xl mb-8">
-                Tillsammans skapar vi ditt hem.
-              </p>
-            </AnimateOnScroll>
-            
-            <AnimateOnScroll animation="slide-up" delay={600}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a 
-                  href="tel:0104051000" 
-                  className="button-primary text-lg py-4 px-8"
-                >
-                  Ring oss
-                </a>
-                <Link 
-                  to="/tjanster" 
-                  className="button-secondary text-lg py-4 px-8 border-white border text-white bg-transparent hover:bg-white/20"
-                >
-                  Våra tjänster
-                </Link>
-              </div>
-            </AnimateOnScroll>
-            
-            <AnimateOnScroll animation="fade-in" delay={800}>
-              <div className="mt-12">
-                <div className="flex flex-col items-center">
-                  <div className="flex">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="text-sm mt-1">
-                    UTMÄRKT • Baserat på 191 recensioner
-                  </p>
-                </div>
-              </div>
-            </AnimateOnScroll>
-          </div>
-        </div>
-      </section>
+      <ParallaxHero />
 
       {/* Intro Section */}
-      <section className="py-16 bg-white">
+      <section className="py-24 bg-white relative z-10">
         <div className="container mx-auto px-4">
-          <AnimateOnScroll animation="slide-up">
-            <p className="text-xl text-center text-gray-700 max-w-4xl mx-auto">
+          <AnimatedSection direction="up" className="max-w-4xl mx-auto">
+            <p className="text-xl text-center text-gray-700">
               Vi är det första svenska företaget som erbjuder dig allt från bygglovsritningar, konstruktionsritningar, kontrollansvarig till byggare, allt under ett och samma tak.
             </p>
-          </AnimateOnScroll>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-24 bg-gray-50 relative z-10">
         <div className="container mx-auto px-4">
-          <AnimateOnScroll animation="slide-up">
-            <h2 className="heading-lg text-center mb-4">Tjänster</h2>
-            <p className="text-xl text-center text-gray-700 max-w-4xl mx-auto mb-12">
+          <AnimatedSection direction="up" className="text-center mb-16">
+            <h2 className="heading-lg mb-4">Tjänster</h2>
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto">
               Oavsett ditt byggprojekt, har vi tjänsterna du behöver för en lyckad bygglovsprocess.
             </p>
-          </AnimateOnScroll>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {serviceItems.map((service, index) => (
-              <AnimateOnScroll 
-                key={index} 
-                animation="slide-up" 
-                delay={index * 100}
+              <AnimatedSection
+                key={index}
+                delay={index * 0.1}
+                direction="up"
+                once={false}
               >
                 <ServiceCard {...service} />
-              </AnimateOnScroll>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Price Section */}
-      <section className="py-16 bg-white">
+      <section className="py-24 bg-white relative z-10">
         <div className="container mx-auto px-4">
-          <AnimateOnScroll animation="slide-up">
-            <h2 className="heading-lg text-center mb-4">Priser</h2>
-            <p className="text-xl text-center text-gray-700 max-w-4xl mx-auto mb-12">
+          <AnimatedSection direction="up" className="text-center mb-16">
+            <h2 className="heading-lg mb-4">Priser</h2>
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto">
               Transparenta och konkurrenskraftiga priser för alla våra tjänster.
             </p>
-          </AnimateOnScroll>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {priceItems.map((price, index) => (
-              <AnimateOnScroll 
-                key={index} 
-                animation="slide-up" 
-                delay={index * 100}
+              <AnimatedSection 
+                key={index}
+                delay={index * 0.1}
+                direction="up"
+                once={false}
               >
                 <PriceCard {...price} />
-              </AnimateOnScroll>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-24 bg-gray-50 relative z-10">
         <div className="container mx-auto px-4">
-          <AnimateOnScroll animation="slide-up">
-            <h2 className="heading-lg text-center mb-4">Vad våra kunder säger om oss</h2>
-            <p className="text-xl text-center text-gray-700 max-w-4xl mx-auto mb-12">
+          <AnimatedSection direction="up" className="text-center mb-8">
+            <h2 className="heading-lg mb-4">Vad våra kunder säger om oss</h2>
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto mb-8">
               Vi på Bygglovsexperten är stolta över att ha hjälpt hundratals kunder att förverkliga sina byggprojekt – och ännu stoltare över de fina omdömen vi fått.
             </p>
-          </AnimateOnScroll>
+          </AnimatedSection>
 
-          <div className="flex items-center justify-center mb-8">
+          <AnimatedSection direction="up" delay={0.1} className="flex items-center justify-center mb-12">
             <div className="flex">
               {Array.from({ length: 5 }).map((_, i) => (
-                <svg key={i} className="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
-                </svg>
+                <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />
               ))}
             </div>
             <p className="ml-2 text-gray-700">
               <span className="font-semibold">UTMÄRKT</span> • Baserat på 191 recensioner
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {reviews.map((review, index) => (
-              <AnimateOnScroll 
-                key={index} 
-                animation="slide-up" 
-                delay={index * 100}
+              <AnimatedSection 
+                key={index}
+                delay={index * 0.1}
+                direction="up"
+                once={false}
               >
                 <ReviewCard {...review} />
-              </AnimateOnScroll>
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -327,44 +270,45 @@ const HomePage = () => {
       />
 
       {/* Company Info Section */}
-      <section className="py-16 bg-white">
+      <section className="py-24 bg-white relative z-10">
         <div className="container mx-auto px-4">
-          <AnimateOnScroll animation="slide-up">
-            <h2 className="heading-lg text-center mb-4">Om oss</h2>
-            <p className="text-xl text-center text-gray-700 max-w-4xl mx-auto mb-12">
+          <AnimatedSection direction="up" className="text-center mb-16">
+            <h2 className="heading-lg mb-4">Om oss</h2>
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto">
               Lär känna oss och vår historia
             </p>
-          </AnimateOnScroll>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {companyInfo.map((info, index) => (
-              <AnimateOnScroll 
-                key={index} 
-                animation="slide-up" 
-                delay={index * 100}
+              <AnimatedSection 
+                key={index}
+                delay={index * 0.1}
+                direction="up"
+                once={false}
               >
-                <div className="text-center p-6">
-                  <h3 className="text-4xl font-bold text-brand-500 mb-2">{info.title}</h3>
+                <div className="text-center p-6 hover-lift bg-white rounded-xl shadow-md border border-gray-100">
+                  <h3 className="text-4xl font-bold text-[#62c7fc] mb-2">{info.title}</h3>
                   <p className="text-lg font-semibold mb-2">{info.subtitle}</p>
                   <p className="text-gray-600">{info.description}</p>
                 </div>
-              </AnimateOnScroll>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Customer Promise */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-24 bg-gray-50 relative z-10">
         <div className="container mx-auto px-4">
-          <AnimateOnScroll animation="slide-up">
-            <h2 className="heading-lg text-center mb-4">Våra kundlöften</h2>
-            <p className="text-xl text-center text-gray-700 max-w-4xl mx-auto mb-12">
+          <AnimatedSection direction="up" className="text-center mb-16">
+            <h2 className="heading-lg mb-4">Våra kundlöften</h2>
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto">
               Vi på Bygglovsexperten fokuserar 110% på service och det viktigaste för vårt team och
               arkitekter/konstruktörer är att överleverera och att du som kund ska känna en wooooow-känsla
               när vi är klara med ritningarna.
             </p>
-          </AnimateOnScroll>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
@@ -375,18 +319,19 @@ const HomePage = () => {
               "Garanterar dig bäst pris i Sverige genom vår prisgaranti.",
               "Du kan känna dig trygg, vi har alla ansvarsförsäkringar som krävs."
             ].map((promise, index) => (
-              <AnimateOnScroll 
-                key={index} 
-                animation="slide-up" 
-                delay={index * 100}
+              <AnimatedSection 
+                key={index}
+                delay={index * 0.05}
+                direction="up"
+                once={false}
               >
-                <div className="flex items-start gap-4 p-4">
-                  <div className="bg-brand-500 rounded-full p-1 flex-shrink-0 mt-1">
+                <div className="flex items-start gap-4 p-6 bg-white rounded-xl shadow-md border border-gray-100 hover-lift h-full">
+                  <div className="bg-[#62c7fc] rounded-full p-1 flex-shrink-0 mt-1">
                     <CheckCircle size={18} className="text-white" />
                   </div>
                   <p className="text-gray-700">{promise}</p>
                 </div>
-              </AnimateOnScroll>
+              </AnimatedSection>
             ))}
           </div>
         </div>

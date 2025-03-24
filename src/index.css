@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
     
-    --primary: 24 100% 59%;
+    --primary: 200 86% 69%;
     --primary-foreground: 210 40% 98%;
     
     --secondary: 210 40% 96.1%;
@@ -45,10 +45,11 @@
   
   html {
     scroll-behavior: smooth;
+    @apply bg-background text-foreground;
   }
   
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply antialiased;
     font-feature-settings: "salt", "ss01", "ss02", "cv01", "cv02";
   }
   
@@ -59,12 +60,12 @@
 
 @layer components {
   .glass {
-    @apply bg-white/50 backdrop-blur-lg border border-white/20 shadow-glass;
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-glass;
   }
   
   .button-primary {
-    @apply relative overflow-hidden bg-brand-500 text-white font-medium py-3 px-6 rounded-lg shadow-button
-    hover:bg-brand-600 active:bg-brand-700 transition-all duration-300;
+    @apply relative overflow-hidden bg-[#62c7fc] text-white font-medium py-3 px-6 rounded-lg shadow-button
+    hover:bg-[#4ba5dc] active:bg-[#3b8ec6] transition-all duration-300;
   }
   
   .button-secondary {
@@ -72,12 +73,16 @@
     border border-gray-200 hover:bg-gray-50 active:bg-gray-100 transition-all duration-300;
   }
   
+  .button-cta {
+    @apply flex items-center justify-center gap-2 text-lg font-medium py-5 px-8 rounded-lg shadow-lg transition-all duration-300 transform;
+  }
+  
   .card {
     @apply bg-white rounded-2xl shadow-glass border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg;
   }
   
   .container-section {
-    @apply container mx-auto px-4 sm:px-6 py-16 md:py-24;
+    @apply container mx-auto px-4 sm:px-6 py-20 md:py-32;
   }
   
   .heading-xl {
@@ -101,7 +106,7 @@
   }
   
   .input-field {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-300;
+    @apply w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#62c7fc]/50 focus:border-[#62c7fc] transition-all duration-300;
   }
   
   .section-padding {
@@ -109,30 +114,64 @@
   }
 }
 
-/* Custom animations */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+/* Scroll effects */
+.scroll-section {
+  will-change: transform, opacity;
 }
 
-.animate-on-scroll.animate {
-  opacity: 1;
-  transform: translateY(0);
+/* Scroll indicator */
+.scroll-indicator {
+  animation: bounce 2s infinite;
 }
 
-/* Service card hover effect */
-.service-card {
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
 }
 
-.service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+/* Custom transition curves */
+.transition-custom {
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 /* Progress bar animation */
 .progress-bar-animation {
   width: 0;
-  transition: width 1s ease-in-out;
+  transition: width 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Soft hover effect for cards */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Background gradients */
+.bg-gradient-blue {
+  background: linear-gradient(to right, #62c7fc, #4ba5dc);
+}
+
+/* Text gradient effect */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #62c7fc, #4ba5dc);
+}
+
+/* Smooth transitions */
+.smooth-transition {
+  transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
