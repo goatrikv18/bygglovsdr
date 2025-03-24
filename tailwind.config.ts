@@ -77,8 +77,8 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
-				display: ['Playfair Display', 'serif'],
+				sans: ['Montserrat', 'sans-serif'],
+				display: ['Montserrat', 'sans-serif'],
 			},
 			boxShadow: {
 				'glass': '0 8px 32px rgba(0, 0, 0, 0.1)',

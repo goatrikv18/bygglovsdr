@@ -60,10 +60,10 @@ const IntroLoader = ({ onComplete }: IntroLoaderProps) => {
                 <span className="text-white text-3xl font-bold">B</span>
               </div>
             </div>
-            <h1 className="font-display text-4xl font-bold text-gray-900 mb-2">
+            <h1 className="font-sans text-4xl font-bold text-gray-900 mb-2">
               Bygglovsdr
             </h1>
-            <p className="text-gray-500">Din dröm. Våra ritningar.</p>
+            <p className="text-gray-500 font-sans">Din dröm. Våra ritningar.</p>
           </motion.div>
         </motion.div>
       )}
