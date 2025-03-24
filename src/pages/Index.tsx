@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, FileText, Activity, Droplet, Zap, Award, SquareCheck, CheckCircle } from 'lucide-react';
+import { Phone, FileText, Activity, Droplet, Zap, Award, SquareCheck, CheckCircle, Star } from 'lucide-react';
 import ServiceCard from '@/components/ServiceCard';
 import PriceCard from '@/components/PriceCard';
 import ReviewCard from '@/components/ReviewCard';
