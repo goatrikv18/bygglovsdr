@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Menu,
@@ -95,50 +95,72 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
+  
+  // Refs för dropdown-menyer, för att identifiera klick utanför
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
 
+    // Lyssna på scroll-event
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    
+    // Lyssna på klick utanför för att stänga dropdowns
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
-  // För mobilversionen
+  // Toggle dropdown på klick
   const toggleDropdown = (dropdown: string) => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
   };
-
-  // För test - alla dropdown-menyer alltid synliga
-  const allVisible = true;
 
   return (
     <>
       {/* Navbar */}
       <div className="fixed top-6 right-6 z-[9999]">
         <div className="flex items-center bg-white rounded-full shadow-xl overflow-hidden">
-          {/* Company name */}
-          <Link to="/" className="pl-5 pr-3 font-medium text-gray-800">
-            Bygglovsexperten
-          </Link>
-
           {/* Desktop navigation */}
-          <nav className="hidden md:block">
-            <ul className="flex items-center py-2 pr-2">
+          <nav className="hidden md:block" ref={dropdownRef}>
+            <ul className="flex items-center py-2 pl-5 pr-2">
               {/* Tjänster dropdown */}
               <li className="relative">
-                <div className="px-3 py-2 cursor-pointer">
-                  <span className="flex items-center gap-1 text-gray-700 text-sm font-medium">
-                    Tjänster
-                    <ChevronDown size={14} />
-                  </span>
-                  
-                  {/* Dropdown-meny för tjänster */}
-                  <div className="absolute left-0 top-10 w-[500px] bg-white shadow-lg rounded-lg p-4 z-[9999] block">
+                <button
+                  onClick={() => toggleDropdown('tjanster')}
+                  className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-[#62c7fc] text-sm font-medium"
+                >
+                  <span>Tjänster</span>
+                  <ChevronDown 
+                    size={14}
+                    className={`transition-transform duration-200 ${
+                      activeDropdown === 'tjanster' ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                
+                {/* Dropdown-meny för tjänster */}
+                {activeDropdown === 'tjanster' && (
+                  <div className="absolute left-0 top-10 w-[500px] bg-white shadow-lg rounded-lg p-4 z-[9999]">
                     <div className="grid grid-cols-2 gap-4">
                       {serviceItems.map((item, index) => (
-                        <Link key={index} to={item.link} className="flex p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                        <Link 
+                          key={index} 
+                          to={item.link} 
+                          className="flex p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                          onClick={() => setActiveDropdown(null)}
+                        >
                           <span className="text-2xl mr-3">{item.icon}</span>
                           <div>
                             <h3 className="text-gray-800 font-medium hover:text-[#62c7fc] flex items-center">
@@ -151,30 +173,46 @@ const Navbar = () => {
                       ))}
                     </div>
                     <div className="mt-4 pt-3 border-t border-gray-100 text-center">
-                      <Link to="/kontakt" className="text-[#62c7fc] hover:underline text-sm inline-flex items-center">
+                      <Link 
+                        to="/kontakt" 
+                        className="text-[#62c7fc] hover:underline text-sm inline-flex items-center"
+                        onClick={() => setActiveDropdown(null)}
+                      >
                         <span>Vill du starta ditt projekt?</span>
                         <span className="ml-1 font-medium">Boka ett möte</span>
                         <ChevronRight size={14} className="ml-1" />
                       </Link>
                     </div>
                   </div>
-                </div>
+                )}
               </li>
 
               {/* Priser dropdown */}
               <li className="relative">
-                <div className="px-3 py-2 cursor-pointer">
-                  <span className="flex items-center gap-1 text-gray-700 text-sm font-medium">
-                    Priser
-                    <ChevronDown size={14} />
-                  </span>
-                  
-                  {/* Dropdown-meny för priser */}
-                  <div className="absolute left-0 top-10 w-[320px] bg-white shadow-lg rounded-lg p-4 z-[9999] block">
+                <button
+                  onClick={() => toggleDropdown('priser')}
+                  className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-[#62c7fc] text-sm font-medium"
+                >
+                  <span>Priser</span>
+                  <ChevronDown 
+                    size={14}
+                    className={`transition-transform duration-200 ${
+                      activeDropdown === 'priser' ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                
+                {/* Dropdown-meny för priser */}
+                {activeDropdown === 'priser' && (
+                  <div className="absolute left-0 top-10 w-[320px] bg-white shadow-lg rounded-lg p-4 z-[9999]">
                     <ul className="space-y-2">
                       {priceItems.map((item, index) => (
                         <li key={index}>
-                          <Link to={item.link} className="block p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                          <Link 
+                            to={item.link} 
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                            onClick={() => setActiveDropdown(null)}
+                          >
                             <div className="flex items-center justify-between">
                               <span className="font-medium text-gray-800">{item.title}</span>
                               <ChevronRight size={14} className="text-gray-400" />
@@ -185,7 +223,7 @@ const Navbar = () => {
                       ))}
                     </ul>
                   </div>
-                </div>
+                )}
               </li>
 
               {/* Regular links */}
@@ -203,18 +241,30 @@ const Navbar = () => {
 
               {/* Kontakt dropdown */}
               <li className="relative">
-                <div className="px-3 py-2 cursor-pointer">
-                  <span className="flex items-center gap-1 text-gray-700 text-sm font-medium">
-                    Kontakt
-                    <ChevronDown size={14} />
-                  </span>
-                  
-                  {/* Dropdown-meny för kontakt */}
-                  <div className="absolute left-0 top-10 w-[280px] bg-white shadow-lg rounded-lg p-4 z-[9999] block">
+                <button
+                  onClick={() => toggleDropdown('kontakt')}
+                  className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-[#62c7fc] text-sm font-medium"
+                >
+                  <span>Kontakt</span>
+                  <ChevronDown 
+                    size={14} 
+                    className={`transition-transform duration-200 ${
+                      activeDropdown === 'kontakt' ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                
+                {/* Dropdown-meny för kontakt */}
+                {activeDropdown === 'kontakt' && (
+                  <div className="absolute left-0 top-10 w-[280px] bg-white shadow-lg rounded-lg p-4 z-[9999]">
                     <ul className="space-y-2">
                       {contactItems.map((item, index) => (
                         <li key={index}>
-                          <Link to={item.link} className="block p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                          <Link 
+                            to={item.link} 
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                            onClick={() => setActiveDropdown(null)}
+                          >
                             <div className="flex items-center justify-between">
                               <span className="font-medium text-gray-800">{item.title}</span>
                               <ChevronRight size={14} className="text-gray-400" />
@@ -225,7 +275,7 @@ const Navbar = () => {
                       ))}
                     </ul>
                   </div>
-                </div>
+                )}
               </li>
 
               {/* Phone button */}
