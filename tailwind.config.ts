@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -58,17 +57,17 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				brand: {
-					50: '#fef7ee',
-					100: '#fdeed8',
-					200: '#fad9b0',
-					300: '#f7c079',
-					400: '#f4a24d',
-					500: '#ff6f2c', // Primary brand color
-					600: '#e65a14',
-					700: '#bf4010',
-					800: '#9a3513',
-					900: '#7d2f15',
-					950: '#461508',
+					50: '#eef9ff',
+					100: '#d9f1ff',
+					200: '#bae5ff',
+					300: '#87d6fc',
+					400: '#62c7fc', // Primary brand color
+					500: '#38aff3',
+					600: '#238fe6',
+					700: '#1c74cc',
+					800: '#1e60a5',
+					900: '#1f5183',
+					950: '#173151',
 				},
 			},
 			borderRadius: {

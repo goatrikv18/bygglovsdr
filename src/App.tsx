@@ -1,10 +1,11 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Index from "./pages/Index";
 import Tjanster from "./pages/Tjanster";
 import Priser from "./pages/Priser";
@@ -14,6 +15,9 @@ import Kontakt from "./pages/Kontakt";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const queryClient = new QueryClient();
 
