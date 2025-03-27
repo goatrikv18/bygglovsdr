@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+  import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Menu,
@@ -115,28 +115,18 @@ const Navbar = () => {
           /* Dropdown styling för hover-effekt på desktop */
           @media (min-width: 768px) {
             .dropdown-container:hover .dropdown-menu {
-              display: flex;
+              display: block;
               opacity: 1;
               transform: translateY(0);
               visibility: visible;
             }
             
             .dropdown-menu {
-              display: flex;
+              display: block;
               opacity: 0;
               transform: translateY(-10px);
               visibility: hidden;
-              transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-              border-radius: 0 0 12px 12px;
-              overflow: hidden;
-              width: 100%;
-              left: 0;
-              right: 0;
-              position: absolute;
-              justify-content: center;
-              margin-top: 16px;
-              max-width: 100vw;
+              transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
             }
             
             .dropdown-container:hover .chevron-icon {
@@ -144,14 +134,7 @@ const Navbar = () => {
             }
             
             .chevron-icon {
-              transition: transform 0.3s;
-            }
-
-            .dropdown-menu-inner {
-              width: 100%;
-              max-width: 1200px;
-              margin: 0 auto;
-              padding: 0 2rem;
+              transition: transform 0.2s;
             }
           }
         `}
@@ -159,7 +142,7 @@ const Navbar = () => {
 
       {/* Navbar positioned to the right */}
       <header className={`fixed top-0 w-full z-[9999] transition-all duration-300 ${scrolled ? 'py-2' : 'py-4'}`}>
-        <div className="relative max-w-[1800px] mx-auto flex items-center justify-end px-4 md:px-6">
+        <div className="flex items-center justify-end px-4 md:px-6">
           {/* Desktop navigation - pill shape */}
           <nav className="hidden md:block">
             <div className={`${scrolled ? 'bg-white shadow-md' : 'bg-white/10 backdrop-blur-sm'} rounded-full`}>
@@ -174,35 +157,33 @@ const Navbar = () => {
                   </button>
                   
                   {/* Dropdown-meny för tjänster */}
-                  <div className="dropdown-menu bg-white shadow-lg z-[9999]">
-                    <div className="dropdown-menu-inner py-10">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-                        {serviceItems.map((item, index) => (
-                          <Link 
-                            key={index} 
-                            to={item.link}
-                            className="group block p-4 md:p-5 rounded-lg hover:bg-gray-50 transition-colors border border-gray-100 hover:border-gray-200"
-                          >
-                            <div>
-                              <h3 className="text-gray-800 text-base md:text-lg font-medium group-hover:text-[#62c7fc] flex items-center justify-between">
-                                <span>{item.title}</span>
-                                <ChevronRight size={16} className="text-gray-400 opacity-70 group-hover:translate-x-1 transition-transform" />
-                              </h3>
-                              <p className="text-sm text-gray-500 mt-2 md:mt-3 line-clamp-2">{item.description}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="mt-10 pt-6 border-t border-gray-100 text-center">
+                  <div className="dropdown-menu absolute right-0 top-full mt-1 w-[600px] bg-white shadow-lg rounded-lg p-6 z-[9999]">
+                    <div className="grid grid-cols-2 gap-6">
+                      {serviceItems.map((item, index) => (
                         <Link 
-                          to="/kontakt" 
-                          className="text-[#62c7fc] hover:underline text-base inline-flex items-center"
+                          key={index} 
+                          to={item.link}
+                          className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                         >
-                          <span>Vill du starta ditt projekt?</span>
-                          <span className="ml-1 font-medium">Boka ett möte</span>
-                          <ChevronRight size={16} className="ml-1" />
+                          <div>
+                            <h3 className="text-gray-800 font-medium hover:text-[#62c7fc] flex items-center">
+                              {item.title}
+                              <ChevronRight className="ml-1 h-3 w-3" />
+                            </h3>
+                            <p className="text-xs text-gray-500 mt-2">{item.description}</p>
+                          </div>
                         </Link>
-                      </div>
+                      ))}
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-gray-100 text-center">
+                      <Link 
+                        to="/kontakt" 
+                        className="text-[#62c7fc] hover:underline text-sm inline-flex items-center"
+                      >
+                        <span>Vill du starta ditt projekt?</span>
+                        <span className="ml-1 font-medium">Boka ett möte</span>
+                        <ChevronRight size={14} className="ml-1" />
+                      </Link>
                     </div>
                   </div>
                 </li>
@@ -217,35 +198,33 @@ const Navbar = () => {
                   </button>
                   
                   {/* Dropdown-meny för priser */}
-                  <div className="dropdown-menu bg-white shadow-lg z-[9999]">
-                    <div className="dropdown-menu-inner py-10">
-                      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                        {priceItems.map((item, index) => (
-                          <Link 
-                            key={index}
-                            to={item.link}
-                            className="group block p-5 rounded-lg hover:bg-gray-50 transition-colors border border-gray-100 hover:border-gray-200"
-                          >
-                            <div>
-                              <h3 className="text-gray-800 text-lg font-medium group-hover:text-[#62c7fc] flex items-center justify-between">
-                                <span>{item.title}</span>
-                                <ChevronRight size={16} className="text-gray-400 opacity-70 group-hover:translate-x-1 transition-transform" />
-                              </h3>
-                              <p className="text-sm text-gray-500 mt-3 line-clamp-2">{item.description}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="mt-10 pt-6 border-t border-gray-100 text-center">
+                  <div className="dropdown-menu absolute right-0 top-full mt-1 w-[500px] bg-white shadow-lg rounded-lg p-6 z-[9999]">
+                    <div className="grid grid-cols-2 gap-6">
+                      {priceItems.map((item, index) => (
                         <Link 
-                          to="/kontakt" 
-                          className="text-[#62c7fc] hover:underline text-base inline-flex items-center"
+                          key={index}
+                          to={item.link}
+                          className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                         >
-                          <span>Vill du veta mer om våra priser?</span>
-                          <span className="ml-1 font-medium">Begär offert</span>
-                          <ChevronRight size={16} className="ml-1" />
+                          <div>
+                            <h3 className="text-gray-800 font-medium hover:text-[#62c7fc] flex items-center justify-between">
+                              <span>{item.title}</span>
+                              <ChevronRight size={14} className="text-gray-400" />
+                            </h3>
+                            <p className="text-xs text-gray-500 mt-2">{item.description}</p>
+                          </div>
                         </Link>
-                      </div>
+                      ))}
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-gray-100 text-center">
+                      <Link 
+                        to="/kontakt" 
+                        className="text-[#62c7fc] hover:underline text-sm inline-flex items-center"
+                      >
+                        <span>Vill du veta mer om våra priser?</span>
+                        <span className="ml-1 font-medium">Begär offert</span>
+                        <ChevronRight size={14} className="ml-1" />
+                      </Link>
                     </div>
                   </div>
                 </li>
@@ -279,25 +258,23 @@ const Navbar = () => {
                   </button>
                   
                   {/* Dropdown-meny för kontakt */}
-                  <div className="dropdown-menu bg-white shadow-lg z-[9999]">
-                    <div className="dropdown-menu-inner py-10">
-                      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                        {contactItems.map((item, index) => (
-                          <Link 
-                            key={index}
-                            to={item.link}
-                            className="group block p-5 rounded-lg hover:bg-gray-50 transition-colors border border-gray-100 hover:border-gray-200"
-                          >
-                            <div>
-                              <h3 className="text-gray-800 text-lg font-medium group-hover:text-[#62c7fc] flex items-center justify-between">
-                                <span>{item.title}</span>
-                                <ChevronRight size={16} className="text-gray-400 opacity-70 group-hover:translate-x-1 transition-transform" />
-                              </h3>
-                              <p className="text-sm text-gray-500 mt-3 line-clamp-2">{item.description}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
+                  <div className="dropdown-menu absolute right-0 top-full mt-1 w-[450px] bg-white shadow-lg rounded-lg p-6 z-[9999]">
+                    <div className="grid grid-cols-2 gap-6">
+                      {contactItems.map((item, index) => (
+                        <Link 
+                          key={index}
+                          to={item.link}
+                          className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                        >
+                          <div>
+                            <h3 className="text-gray-800 font-medium hover:text-[#62c7fc] flex items-center justify-between">
+                              <span>{item.title}</span>
+                              <ChevronRight size={14} className="text-gray-400" />
+                            </h3>
+                            <p className="text-xs text-gray-500 mt-2">{item.description}</p>
+                          </div>
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 </li>
