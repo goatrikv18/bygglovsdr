@@ -1,4 +1,4 @@
-
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Activity, Droplet, Zap, Award, SquareCheck } from 'lucide-react';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
@@ -6,6 +6,11 @@ import ServiceCard from '@/components/ServiceCard';
 import CallToAction from '@/components/CallToAction';
 
 const TjansterPage = () => {
+  useEffect(() => {
+    // Reset scroll position when the page loads
+    window.scrollTo(0, 0);
+  }, []);
+  
   const serviceItems = [
     {
       title: 'Bygglovsritningar',
@@ -46,9 +51,9 @@ const TjansterPage = () => {
   ];
 
   return (
-    <div className="pt-20">
+    <div>
       {/* Header Section */}
-      <section className="bg-brand-50 py-16 md:py-24">
+      <section className="bg-brand-50 pt-32 pb-16 md:pt-40 md:pb-24">
         <div className="container mx-auto px-4">
           <AnimateOnScroll animation="slide-up">
             <h1 className="heading-xl text-center mb-6">Våra Tjänster</h1>

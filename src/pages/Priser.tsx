@@ -1,10 +1,15 @@
-
+import { useEffect } from 'react';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import PriceCard from '@/components/PriceCard';
 import CallToAction from '@/components/CallToAction';
 import { Check } from 'lucide-react';
 
 const PriserPage = () => {
+  useEffect(() => {
+    // Reset scroll position when the page loads
+    window.scrollTo(0, 0);
+  }, []);
+  
   const priceItems = [
     {
       title: 'Bygglovsritningar',
@@ -58,9 +63,9 @@ const PriserPage = () => {
   ];
 
   return (
-    <div className="pt-20">
+    <div>
       {/* Header Section */}
-      <section className="bg-brand-50 py-16 md:py-24">
+      <section className="bg-brand-50 pt-32 pb-16 md:pt-40 md:pb-24">
         <div className="container mx-auto px-4">
           <AnimateOnScroll animation="slide-up">
             <h1 className="heading-xl text-center mb-6">Våra Priser</h1>
@@ -105,7 +110,7 @@ const PriserPage = () => {
                 <div className="space-y-4">
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3">
-                      <div className="bg-brand-500 rounded-full p-1 flex-shrink-0 mt-1">
+                      <div className="bg-[#62c7fc] rounded-full p-1 flex-shrink-0 mt-1">
                         <Check size={16} className="text-white" />
                       </div>
                       <p className="text-gray-700">{benefit}</p>
@@ -121,27 +126,27 @@ const PriserPage = () => {
                 <p className="text-gray-700 mb-6">
                   Vi garanterar dig bäst pris i Sverige. Om du hittar en likvärdig tjänst till ett lägre pris hos en konkurrent, matchar vi priset och ger dig ytterligare 5% rabatt.
                 </p>
-                <div className="bg-brand-50 p-6 rounded-lg">
+                <div className="bg-[#62c7fc]/10 p-6 rounded-lg">
                   <h4 className="font-semibold text-lg mb-2">Vad ingår i priset?</h4>
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
-                      <Check size={16} className="text-brand-500 mt-1 flex-shrink-0" />
+                      <Check size={16} className="text-[#62c7fc] mt-1 flex-shrink-0" />
                       <span>Alla ritningar kommunen kräver</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <Check size={16} className="text-brand-500 mt-1 flex-shrink-0" />
+                      <Check size={16} className="text-[#62c7fc] mt-1 flex-shrink-0" />
                       <span>Obegränsade revideringar</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <Check size={16} className="text-brand-500 mt-1 flex-shrink-0" />
+                      <Check size={16} className="text-[#62c7fc] mt-1 flex-shrink-0" />
                       <span>Personlig projektledare</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <Check size={16} className="text-brand-500 mt-1 flex-shrink-0" />
+                      <Check size={16} className="text-[#62c7fc] mt-1 flex-shrink-0" />
                       <span>Hjälp med bygglovsansökan</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <Check size={16} className="text-brand-500 mt-1 flex-shrink-0" />
+                      <Check size={16} className="text-[#62c7fc] mt-1 flex-shrink-0" />
                       <span>Fri rådgivning under hela processen</span>
                     </li>
                   </ul>

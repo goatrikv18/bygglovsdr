@@ -1,13 +1,18 @@
-
+import { useEffect } from 'react';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import ContactForm from '@/components/ContactForm';
 import { Phone, Mail, MapPin, Clock, Check } from 'lucide-react';
 
 const KontaktPage = () => {
+  useEffect(() => {
+    // Reset scroll position when the page loads
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className="pt-20">
+    <div>
       {/* Header Section */}
-      <section className="bg-brand-50 py-16 md:py-24">
+      <section className="bg-brand-50 pt-32 pb-16 md:pt-40 md:pb-24">
         <div className="container mx-auto px-4">
           <AnimateOnScroll animation="slide-up">
             <h1 className="heading-xl text-center mb-6">Kontakta oss</h1>
@@ -32,32 +37,32 @@ const KontaktPage = () => {
 
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0 mt-1">
-                      <Phone className="h-5 w-5 text-brand-500" />
+                    <div className="w-10 h-10 rounded-full bg-[#62c7fc]/10 flex items-center justify-center flex-shrink-0 mt-1">
+                      <Phone className="h-5 w-5 text-[#62c7fc]" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg mb-1">Telefon</h3>
-                      <a href="tel:0104051000" className="text-gray-600 hover:text-brand-500 transition-colors">
+                      <a href="tel:0104051000" className="text-gray-600 hover:text-[#62c7fc] transition-colors">
                         010-405 1000
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0 mt-1">
-                      <Mail className="h-5 w-5 text-brand-500" />
+                    <div className="w-10 h-10 rounded-full bg-[#62c7fc]/10 flex items-center justify-center flex-shrink-0 mt-1">
+                      <Mail className="h-5 w-5 text-[#62c7fc]" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg mb-1">E-post</h3>
-                      <a href="mailto:info@bygglovsexperten.se" className="text-gray-600 hover:text-brand-500 transition-colors">
+                      <a href="mailto:info@bygglovsexperten.se" className="text-gray-600 hover:text-[#62c7fc] transition-colors">
                         info@bygglovsexperten.se
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0 mt-1">
-                      <Clock className="h-5 w-5 text-brand-500" />
+                    <div className="w-10 h-10 rounded-full bg-[#62c7fc]/10 flex items-center justify-center flex-shrink-0 mt-1">
+                      <Clock className="h-5 w-5 text-[#62c7fc]" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg mb-1">Öppettider</h3>
@@ -68,8 +73,8 @@ const KontaktPage = () => {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0 mt-1">
-                      <MapPin className="h-5 w-5 text-brand-500" />
+                    <div className="w-10 h-10 rounded-full bg-[#62c7fc]/10 flex items-center justify-center flex-shrink-0 mt-1">
+                      <MapPin className="h-5 w-5 text-[#62c7fc]" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg mb-1">Täckning</h3>
@@ -84,23 +89,23 @@ const KontaktPage = () => {
                   <h3 className="font-semibold text-lg mb-4">Varför välja oss?</h3>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-brand-500 flex-shrink-0 mt-0.5" />
+                      <Check className="h-5 w-5 text-[#62c7fc] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">Kostnadsfri rådgivning innan projektet startar</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-brand-500 flex-shrink-0 mt-0.5" />
+                      <Check className="h-5 w-5 text-[#62c7fc] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">Fast pris utan överraskningar</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-brand-500 flex-shrink-0 mt-0.5" />
+                      <Check className="h-5 w-5 text-[#62c7fc] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">Erfarna arkitekter och konstruktörer</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-brand-500 flex-shrink-0 mt-0.5" />
+                      <Check className="h-5 w-5 text-[#62c7fc] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">Snabba leveranser, oftast inom 1-2 veckor</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-brand-500 flex-shrink-0 mt-0.5" />
+                      <Check className="h-5 w-5 text-[#62c7fc] flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">Vi hjälper dig med hela bygglovsprocessen</span>
                     </li>
                   </ul>

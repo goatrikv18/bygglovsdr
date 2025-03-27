@@ -4,9 +4,9 @@ import {
   Menu,
   X,
   Phone,
-  ChevronUp,
   ChevronDown,
   ChevronRight,
+  ChevronUp,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -15,31 +15,26 @@ const serviceItems = [
   {
     title: "Konstruktionsritningar",
     description: "Tekniska underlag för konstruktionens utformning och hållfasthet.",
-    icon: "🏛️",
     link: "/tjanster/konstruktionsritningar",
   },
   {
     title: "Bygglovsritningar",
     description: "Ritningar som specificerar byggnadens yttre och funktionella detaljer.",
-    icon: "🏠",
     link: "/tjanster/bygglovsritningar",
   },
   {
     title: "VVS-ritningar",
     description: "Tekniska underlag för planering av VVS-system.",
-    icon: "🚿",
     link: "/tjanster/vvs-ritningar",
   },
   {
     title: "Energiberäkningar",
     description: "Beräkningar av byggnadens energianvändning.",
-    icon: "⚡",
     link: "/tjanster/energiberakningar",
   },
   {
     title: "Kontrollplaner",
     description: "Underlag för kontroll av byggnation.",
-    icon: "📋",
     link: "/tjanster/kontrollplaner",
   }
 ];
@@ -95,30 +90,16 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
-  
-  // Refs för dropdown-menyer, för att identifiera klick utanför
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    // Lyssna på scroll-event
     window.addEventListener("scroll", handleScroll);
-    
-    // Lyssna på klick utanför för att stänga dropdowns
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null);
-      }
-    };
-    
-    document.addEventListener("mousedown", handleClickOutside);
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -129,54 +110,75 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Navbar */}
-      <div className="fixed top-6 right-6 z-[9999]">
-        <div className="flex items-center bg-white rounded-full shadow-xl overflow-hidden">
-          {/* Desktop navigation */}
-          <nav className="hidden md:block" ref={dropdownRef}>
-            <ul className="flex items-center py-2 pl-5 pr-2">
-              {/* Tjänster dropdown */}
-              <li className="relative">
-                <button
-                  onClick={() => toggleDropdown('tjanster')}
-                  className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-[#62c7fc] text-sm font-medium"
-                >
-                  <span>Tjänster</span>
-                  <ChevronDown 
-                    size={14}
-                    className={`transition-transform duration-200 ${
-                      activeDropdown === 'tjanster' ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                
-                {/* Dropdown-meny för tjänster */}
-                {activeDropdown === 'tjanster' && (
-                  <div className="absolute left-0 top-10 w-[500px] bg-white shadow-lg rounded-lg p-4 z-[9999]">
-                    <div className="grid grid-cols-2 gap-4">
+      <style>
+        {`
+          /* Dropdown styling för hover-effekt på desktop */
+          @media (min-width: 768px) {
+            .dropdown-container:hover .dropdown-menu {
+              display: block;
+              opacity: 1;
+              transform: translateY(0);
+              visibility: visible;
+            }
+            
+            .dropdown-menu {
+              display: block;
+              opacity: 0;
+              transform: translateY(-10px);
+              visibility: hidden;
+              transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+            }
+            
+            .dropdown-container:hover .chevron-icon {
+              transform: rotate(180deg);
+            }
+            
+            .chevron-icon {
+              transition: transform 0.2s;
+            }
+          }
+        `}
+      </style>
+
+      {/* Navbar positioned to the right */}
+      <header className={`fixed top-0 w-full z-[9999] transition-all duration-300 ${scrolled ? 'py-2' : 'py-4'}`}>
+        <div className="flex items-center justify-end px-4 md:px-6">
+          {/* Desktop navigation - pill shape */}
+          <nav className="hidden md:block">
+            <div className={`${scrolled ? 'bg-white shadow-md' : 'bg-white/10 backdrop-blur-sm'} rounded-full`}>
+              <ul className="flex items-center">
+                {/* Tjänster dropdown */}
+                <li className="relative dropdown-container">
+                  <button
+                    className={`flex items-center gap-1 px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium`}
+                  >
+                    <span>Tjänster</span>
+                    <ChevronDown size={14} className="chevron-icon" />
+                  </button>
+                  
+                  {/* Dropdown-meny för tjänster */}
+                  <div className="dropdown-menu absolute right-0 top-full mt-1 w-[600px] bg-white shadow-lg rounded-lg p-6 z-[9999]">
+                    <div className="grid grid-cols-2 gap-6">
                       {serviceItems.map((item, index) => (
                         <Link 
                           key={index} 
-                          to={item.link} 
-                          className="flex p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                          onClick={() => setActiveDropdown(null)}
+                          to={item.link}
+                          className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                         >
-                          <span className="text-2xl mr-3">{item.icon}</span>
                           <div>
                             <h3 className="text-gray-800 font-medium hover:text-[#62c7fc] flex items-center">
                               {item.title}
                               <ChevronRight className="ml-1 h-3 w-3" />
                             </h3>
-                            <p className="text-xs text-gray-500 mt-1">{item.description}</p>
+                            <p className="text-xs text-gray-500 mt-2">{item.description}</p>
                           </div>
                         </Link>
                       ))}
                     </div>
-                    <div className="mt-4 pt-3 border-t border-gray-100 text-center">
+                    <div className="mt-6 pt-4 border-t border-gray-100 text-center">
                       <Link 
                         to="/kontakt" 
                         className="text-[#62c7fc] hover:underline text-sm inline-flex items-center"
-                        onClick={() => setActiveDropdown(null)}
                       >
                         <span>Vill du starta ditt projekt?</span>
                         <span className="ml-1 font-medium">Boka ett möte</span>
@@ -184,117 +186,117 @@ const Navbar = () => {
                       </Link>
                     </div>
                   </div>
-                )}
-              </li>
+                </li>
 
-              {/* Priser dropdown */}
-              <li className="relative">
-                <button
-                  onClick={() => toggleDropdown('priser')}
-                  className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-[#62c7fc] text-sm font-medium"
-                >
-                  <span>Priser</span>
-                  <ChevronDown 
-                    size={14}
-                    className={`transition-transform duration-200 ${
-                      activeDropdown === 'priser' ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                
-                {/* Dropdown-meny för priser */}
-                {activeDropdown === 'priser' && (
-                  <div className="absolute left-0 top-10 w-[320px] bg-white shadow-lg rounded-lg p-4 z-[9999]">
-                    <ul className="space-y-2">
+                {/* Priser dropdown */}
+                <li className="relative dropdown-container">
+                  <button
+                    className={`flex items-center gap-1 px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium`}
+                  >
+                    <span>Priser</span>
+                    <ChevronDown size={14} className="chevron-icon" />
+                  </button>
+                  
+                  {/* Dropdown-meny för priser */}
+                  <div className="dropdown-menu absolute right-0 top-full mt-1 w-[500px] bg-white shadow-lg rounded-lg p-6 z-[9999]">
+                    <div className="grid grid-cols-2 gap-6">
                       {priceItems.map((item, index) => (
-                        <li key={index}>
-                          <Link 
-                            to={item.link} 
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                            onClick={() => setActiveDropdown(null)}
-                          >
-                            <div className="flex items-center justify-between">
-                              <span className="font-medium text-gray-800">{item.title}</span>
+                        <Link 
+                          key={index}
+                          to={item.link}
+                          className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                        >
+                          <div>
+                            <h3 className="text-gray-800 font-medium hover:text-[#62c7fc] flex items-center justify-between">
+                              <span>{item.title}</span>
                               <ChevronRight size={14} className="text-gray-400" />
-                            </div>
-                            <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-                          </Link>
-                        </li>
+                            </h3>
+                            <p className="text-xs text-gray-500 mt-2">{item.description}</p>
+                          </div>
+                        </Link>
                       ))}
-                    </ul>
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-gray-100 text-center">
+                      <Link 
+                        to="/kontakt" 
+                        className="text-[#62c7fc] hover:underline text-sm inline-flex items-center"
+                      >
+                        <span>Vill du veta mer om våra priser?</span>
+                        <span className="ml-1 font-medium">Begär offert</span>
+                        <ChevronRight size={14} className="ml-1" />
+                      </Link>
+                    </div>
                   </div>
-                )}
-              </li>
+                </li>
 
-              {/* Regular links */}
-              <li>
-                <Link to="/portfolio" className="px-3 py-2 text-gray-700 hover:text-[#62c7fc] text-sm font-medium block">
-                  Portfolio
-                </Link>
-              </li>
-              
-              <li>
-                <Link to="/blogg" className="px-3 py-2 text-gray-700 hover:text-[#62c7fc] text-sm font-medium block">
-                  Blogg
-                </Link>
-              </li>
-
-              {/* Kontakt dropdown */}
-              <li className="relative">
-                <button
-                  onClick={() => toggleDropdown('kontakt')}
-                  className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-[#62c7fc] text-sm font-medium"
-                >
-                  <span>Kontakt</span>
-                  <ChevronDown 
-                    size={14} 
-                    className={`transition-transform duration-200 ${
-                      activeDropdown === 'kontakt' ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
+                {/* Regular links */}
+                <li>
+                  <Link 
+                    to="/projekt" 
+                    className={`px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium block`}
+                  >
+                    Projekt
+                  </Link>
+                </li>
                 
-                {/* Dropdown-meny för kontakt */}
-                {activeDropdown === 'kontakt' && (
-                  <div className="absolute left-0 top-10 w-[280px] bg-white shadow-lg rounded-lg p-4 z-[9999]">
-                    <ul className="space-y-2">
-                      {contactItems.map((item, index) => (
-                        <li key={index}>
-                          <Link 
-                            to={item.link} 
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                            onClick={() => setActiveDropdown(null)}
-                          >
-                            <div className="flex items-center justify-between">
-                              <span className="font-medium text-gray-800">{item.title}</span>
-                              <ChevronRight size={14} className="text-gray-400" />
-                            </div>
-                            <p className="text-xs text-gray-500 mt-1">{item.description}</p>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </li>
+                <li>
+                  <Link 
+                    to="/kunder" 
+                    className={`px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium block`}
+                  >
+                    Kunder
+                  </Link>
+                </li>
 
-              {/* Phone button */}
-              <li className="ml-3 mr-1">
-                <a
-                  href="tel:0104051000"
-                  className="bg-[#62c7fc] hover:bg-[#4ba5dc] text-white px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-1 hover:shadow-md"
-                >
-                  <Phone size={14} />
-                  <span>010-405 10 00</span>
-                </a>
-              </li>
-            </ul>
+                {/* Kontakt dropdown */}
+                <li className="relative dropdown-container">
+                  <button
+                    className={`flex items-center gap-1 px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium`}
+                  >
+                    <span>Kontakt</span>
+                    <ChevronDown size={14} className="chevron-icon" />
+                  </button>
+                  
+                  {/* Dropdown-meny för kontakt */}
+                  <div className="dropdown-menu absolute right-0 top-full mt-1 w-[450px] bg-white shadow-lg rounded-lg p-6 z-[9999]">
+                    <div className="grid grid-cols-2 gap-6">
+                      {contactItems.map((item, index) => (
+                        <Link 
+                          key={index}
+                          to={item.link}
+                          className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                        >
+                          <div>
+                            <h3 className="text-gray-800 font-medium hover:text-[#62c7fc] flex items-center justify-between">
+                              <span>{item.title}</span>
+                              <ChevronRight size={14} className="text-gray-400" />
+                            </h3>
+                            <p className="text-xs text-gray-500 mt-2">{item.description}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </li>
+
+                {/* Phone button */}
+                <li>
+                  <a
+                    href="tel:0104051000"
+                    className={`${scrolled ? 'bg-[#62c7fc] text-white' : 'bg-white text-[#62c7fc]'} hover:bg-[#4ba5dc] hover:text-white px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-1 hover:shadow-md text-sm font-medium ml-2 mr-0`}
+                  >
+                    <Phone size={14} />
+                    <span>010-405 10 00</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </nav>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button - positioned to the right */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-3.5 text-gray-700 hover:text-[#62c7fc] transition-all duration-300 flex items-center justify-center"
+            className={`md:hidden p-2 ${scrolled ? 'bg-white text-gray-700' : 'bg-white/10 backdrop-blur-sm text-white'} hover:text-[#62c7fc] transition-all duration-300 flex items-center justify-center rounded-full`}
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -302,25 +304,15 @@ const Navbar = () => {
 
         {/* Mobile navigation menu */}
         {isOpen && (
-          <div className="fixed top-16 right-4 left-4 bg-white shadow-xl rounded-xl overflow-hidden z-50 md:hidden">
-            <nav className="p-4">
+          <div className="fixed inset-0 top-[60px] bg-white z-50 md:hidden overflow-y-auto">
+            <nav className="container mx-auto p-4">
               <ul className="space-y-4">
-                <li>
-                  <Link
-                    to="/"
-                    className="flex items-center text-gray-900 font-bold"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Bygglovsexperten
-                  </Link>
-                </li>
-
-                <li className="border-t pt-2">
+                <li className="border-b pb-3">
                   <button
-                    className="flex items-center justify-between w-full text-gray-700 py-2"
+                    className="flex items-center justify-between w-full text-gray-700 py-2.5 px-1"
                     onClick={() => toggleDropdown('tjanster')}
                   >
-                    <span>Tjänster</span>
+                    <span className="font-medium">Tjänster</span>
                     <ChevronDown
                       size={16}
                       className={`transition-transform ${
@@ -330,29 +322,33 @@ const Navbar = () => {
                   </button>
 
                   {activeDropdown === 'tjanster' && (
-                    <ul className="pl-4 mt-2 space-y-2">
-                      {serviceItems.map((item, index) => (
-                        <li key={index}>
-                          <Link
-                            to={item.link}
-                            className="flex items-start py-2 text-gray-700 hover:text-[#62c7fc]"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            <span className="mr-2">{item.icon}</span>
-                            <span>{item.title}</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="bg-gray-50 rounded-lg mt-2 py-2">
+                      <ul className="pl-4 space-y-2">
+                        {serviceItems.map((item, index) => (
+                          <li key={index}>
+                            <Link
+                              to={item.link}
+                              className="flex items-start py-2.5 px-2 text-gray-700 hover:text-[#62c7fc] rounded-md hover:bg-white"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              <div>
+                                <div className="font-medium">{item.title}</div>
+                                <div className="text-xs text-gray-500 mt-0.5">{item.description}</div>
+                              </div>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
                 </li>
 
-                <li>
+                <li className="border-b pb-3">
                   <button
-                    className="flex items-center justify-between w-full text-gray-700 py-2"
+                    className="flex items-center justify-between w-full text-gray-700 py-2.5 px-1"
                     onClick={() => toggleDropdown('priser')}
                   >
-                    <span>Priser</span>
+                    <span className="font-medium">Priser</span>
                     <ChevronDown
                       size={16}
                       className={`transition-transform ${
@@ -362,48 +358,53 @@ const Navbar = () => {
                   </button>
 
                   {activeDropdown === 'priser' && (
-                    <ul className="pl-4 mt-2 space-y-2">
-                      {priceItems.map((item, index) => (
-                        <li key={index}>
-                          <Link
-                            to={item.link}
-                            className="block py-2 text-gray-700 hover:text-[#62c7fc]"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {item.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="bg-gray-50 rounded-lg mt-2 py-2">
+                      <ul className="pl-4 space-y-2">
+                        {priceItems.map((item, index) => (
+                          <li key={index}>
+                            <Link
+                              to={item.link}
+                              className="block py-2.5 px-2 text-gray-700 hover:text-[#62c7fc] rounded-md hover:bg-white"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              <div className="font-medium">{item.title}</div>
+                              <div className="text-xs text-gray-500 mt-0.5">{item.description}</div>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
                 </li>
 
-                <li>
+                <li className="border-b pb-3">
                   <Link
-                    to="/portfolio"
-                    className="block py-2 text-gray-700 hover:text-[#62c7fc]"
+                    to="/projekt"
+                    className="flex items-center justify-between w-full py-2.5 px-1 text-gray-700 hover:text-[#62c7fc] font-medium"
                     onClick={() => setIsOpen(false)}
                   >
-                    Portfolio
+                    <span>Projekt</span>
+                    <ChevronRight size={16} className="text-gray-400" />
                   </Link>
                 </li>
 
-                <li>
+                <li className="border-b pb-3">
                   <Link
-                    to="/blogg"
-                    className="block py-2 text-gray-700 hover:text-[#62c7fc]"
+                    to="/kunder"
+                    className="flex items-center justify-between w-full py-2.5 px-1 text-gray-700 hover:text-[#62c7fc] font-medium"
                     onClick={() => setIsOpen(false)}
                   >
-                    Blogg
+                    <span>Kunder</span>
+                    <ChevronRight size={16} className="text-gray-400" />
                   </Link>
                 </li>
 
-                <li>
+                <li className="border-b pb-3">
                   <button
-                    className="flex items-center justify-between w-full text-gray-700 py-2"
+                    className="flex items-center justify-between w-full text-gray-700 py-2.5 px-1"
                     onClick={() => toggleDropdown('kontakt')}
                   >
-                    <span>Kontakt</span>
+                    <span className="font-medium">Kontakt</span>
                     <ChevronDown
                       size={16}
                       className={`transition-transform ${
@@ -413,37 +414,40 @@ const Navbar = () => {
                   </button>
 
                   {activeDropdown === 'kontakt' && (
-                    <ul className="pl-4 mt-2 space-y-2">
-                      {contactItems.map((item, index) => (
-                        <li key={index}>
-                          <Link
-                            to={item.link}
-                            className="block py-2 text-gray-700 hover:text-[#62c7fc]"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {item.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="bg-gray-50 rounded-lg mt-2 py-2">
+                      <ul className="pl-4 space-y-2">
+                        {contactItems.map((item, index) => (
+                          <li key={index}>
+                            <Link
+                              to={item.link}
+                              className="block py-2.5 px-2 text-gray-700 hover:text-[#62c7fc] rounded-md hover:bg-white"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              <div className="font-medium">{item.title}</div>
+                              <div className="text-xs text-gray-500 mt-0.5">{item.description}</div>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
                 </li>
 
-                <li className="pt-2">
+                <li className="pt-3">
                   <a
                     href="tel:0104051000"
-                    className="bg-[#62c7fc] hover:bg-[#4ba5dc] text-white py-3 px-4 rounded-full flex items-center justify-center gap-2"
+                    className="bg-[#62c7fc] hover:bg-[#4ba5dc] text-white py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 shadow-md w-full"
                     onClick={() => setIsOpen(false)}
                   >
-                    <Phone size={16} />
-                    <span>Ring oss: 010-405 10 00</span>
+                    <Phone size={18} />
+                    <span className="font-medium">Ring oss: 010-405 10 00</span>
                   </a>
                 </li>
               </ul>
             </nav>
           </div>
         )}
-      </div>
+      </header>
 
       {/* Back to top button */}
       {scrolled && (

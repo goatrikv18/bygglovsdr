@@ -35,11 +35,24 @@
     --ring: 222.2 84% 4.9%;
     
     --radius: 0.75rem;
+
+    /* Brand colors */
+    --brand-primary: #62c7fc;
+    --brand-primary-dark: #4ba5dc;
+    --brand-primary-light: #a8e1ff;
+    --brand-secondary: #3a3a3a;
+
+    /* Custom Scrollbar */
+    --progress-height: 0%;
+    --primary-color: #62c7fc;
+    --primary-color-hover: #4ba5dc;
   }
 
   * {
     @apply border-border;
     box-sizing: border-box;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
   }
   
   html {
@@ -51,46 +64,75 @@
     @apply antialiased;
     font-feature-settings: "salt", "ss01", "ss02", "cv01", "cv02";
     overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
   }
   
   img {
     @apply max-w-full h-auto;
   }
+
+  /* Base typography styles */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Focus styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary;
+  }
+
+  /* Hide default scrollbar for Chrome, Safari and Opera */
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer components {
   .glass {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-glass;
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-md;
   }
   
+  /* Primary button style */
   .button-primary {
-    @apply relative overflow-hidden bg-[#62c7fc] text-white font-medium py-3 px-6 rounded-lg shadow-button
-    hover:bg-[#4ba5dc] active:bg-[#3b8ec6] transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 bg-[#62c7fc] text-white font-medium py-3 px-6 rounded-lg shadow-md
+    hover:bg-[#4ba5dc] active:bg-[#3a91c2] transition-all duration-300;
   }
   
+  /* Secondary button style */
   .button-secondary {
-    @apply relative overflow-hidden bg-white text-foreground font-medium py-3 px-6 rounded-lg shadow-button
+    @apply inline-flex items-center justify-center gap-2 bg-white text-foreground font-medium py-3 px-6 rounded-lg shadow-sm
     border border-gray-200 hover:bg-gray-50 active:bg-gray-100 transition-all duration-300;
   }
   
+  /* CTA button style */
   .button-cta {
-    @apply flex items-center justify-center gap-2 text-lg font-medium py-5 px-8 rounded-lg shadow-lg transition-all duration-300 transform;
+    @apply inline-flex items-center justify-center gap-2 text-lg font-medium py-4 px-6 rounded-lg shadow-md transition-all duration-300;
   }
   
+  /* Outlined/ghost button style */
+  .button-outlined {
+    @apply inline-flex items-center justify-center gap-2 border border-[#62c7fc] text-[#62c7fc] bg-transparent
+    font-medium py-3 px-6 rounded-lg hover:bg-[#62c7fc]/5 transition-all duration-300;
+  }
+  
+  /* Card component style */
   .card {
-    @apply bg-white rounded-2xl shadow-glass border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg;
+    @apply bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg;
   }
   
+  /* Container section padding */
   .container-section {
-    @apply container mx-auto px-4 sm:px-6 py-20 md:py-32;
+    @apply container mx-auto px-4 sm:px-6 py-16 md:py-24 lg:py-32;
   }
   
+  /* Heading styles */
   .heading-xl {
-    @apply font-display text-4xl md:text-5xl xl:text-6xl font-bold leading-tight;
+    @apply font-display text-4xl md:text-5xl xl:text-6xl font-bold leading-tight tracking-tight;
   }
   
   .heading-lg {
-    @apply font-display text-3xl md:text-4xl font-bold leading-tight;
+    @apply font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight;
   }
   
   .heading-md {
@@ -101,20 +143,38 @@
     @apply font-display text-xl md:text-2xl font-semibold leading-tight;
   }
   
+  /* Paragraph styles */
   .paragraph {
     @apply text-base md:text-lg text-gray-700 leading-relaxed;
   }
   
-  .input-field {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#62c7fc]/50 focus:border-[#62c7fc] transition-all duration-300;
+  .paragraph-lg {
+    @apply text-lg md:text-xl text-gray-700 leading-relaxed;
   }
   
+  /* Form input style */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#62c7fc]/50 focus:border-[#62c7fc] transition-colors;
+  }
+  
+  /* Section padding */
   .section-padding {
-    @apply py-16 md:py-24;
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply bg-[#62c7fc]/10 text-[#62c7fc];
+  }
+
+  .badge-secondary {
+    @apply bg-gray-100 text-gray-800;
   }
 }
-
-/* BTIB.se style animations */
 
 /* Scroll animation elements */
 .gsap-reveal {
@@ -179,13 +239,7 @@
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Progress bar animation */
-.progress-bar-animation {
-  width: 0;
-  transition: width 1s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-/* Soft hover effect for cards */
+/* Hover lift effect for cards */
 .hover-lift {
   transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
               box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -201,60 +255,16 @@
   background: linear-gradient(to right, #62c7fc, #4ba5dc);
 }
 
+.bg-gradient-dark {
+  background: linear-gradient(to bottom, #3a3a3a, #262626);
+}
+
 /* Text gradient effect */
 .text-gradient {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   background-image: linear-gradient(to right, #62c7fc, #4ba5dc);
-}
-
-/* Smooth transitions */
-.smooth-transition {
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Parallax section styling */
-.parallax-container {
-  overflow: hidden;
-  position: relative;
-  height: 100vh;
-  width: 100%;
-}
-
-.parallax-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120%;
-  background-size: cover;
-  background-position: center;
-  will-change: transform;
-}
-
-/* Sticky elements */
-.sticky-element {
-  position: sticky;
-  top: 0;
-}
-
-/* BTIB.se style scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #62c7fc;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #4ba5dc;
 }
 
 /* Mobile menu animation */
@@ -279,6 +289,7 @@
   transition: opacity 300ms, transform 300ms;
 }
 
+/* Fade-in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -300,4 +311,64 @@
 
 .animation-delay-400 {
   animation-delay: 0.4s;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color-hover);
+}
+
+/* Progress Bar Scrollbar */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 9990;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: var(--progress-height);
+  background-color: var(--primary-color);
+  z-index: 9999;
+  transition: height 0.1s ease-out;
+}
+
+/* Scroll progress animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 6px;
+  z-index: 9999;
+  background-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(98, 199, 252, 0.5);
+  transition: height 0.1s ease-out;
 }
