@@ -105,7 +105,7 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({ introComplete }) => {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{ 
-            backgroundImage: 'url(https://bygglovsexperten.se/wp-content/uploads/2024/06/hero-image-new-1-min.jpg)',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2340&auto=format&fit=crop)',
             backgroundPosition: isMobile ? 'center right -100px' : 'center center',
           }}
         />
@@ -141,22 +141,19 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({ introComplete }) => {
           
           {/* Main hero heading */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-white leading-tight mb-6">
-            Din dröm.
-            <br />
-            Våra <em className="font-normal italic text-[#62c7fc]">ritningar</em>
+            Din dröm, våra ritningar.
           </h1>
           
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl leading-relaxed">
-            Tillsammans skapar vi ditt hem. 
-            Vi förverkligar din vision med bygglovsritningar av högsta kvalitet.
+            Tillsammans skapar vi ditt hem.
           </p>
           
           {/* Call to action buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <a 
               href="tel:0104051000" 
-              className="inline-flex items-center justify-center bg-[#62c7fc] hover:bg-[#4ba5dc] text-white px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 shadow-lg"
+              className="inline-flex items-center justify-center bg-[#FF6B35] hover:bg-[#e55b2a] text-white px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 shadow-lg"
             >
               Ring oss nu
             </a>
@@ -169,9 +166,9 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({ introComplete }) => {
               <motion.div variants={buttonAnimation}>
                 <Link 
                   to="/kontakt" 
-                  className="inline-flex items-center justify-center border border-white/30 backdrop-blur-sm bg-white/10 text-white px-6 py-4 rounded-lg font-medium text-lg transition-colors duration-300"
+                  className="inline-flex items-center justify-center border border-[#FF6B35]/50 backdrop-blur-sm bg-[#FF6B35]/20 text-white px-6 py-4 rounded-lg font-medium text-lg transition-colors duration-300"
                 >
-                  Boka ett möte
+                  Begär offert
                   <motion.div
                     variants={arrowAnimation}
                     className="ml-2 flex items-center"

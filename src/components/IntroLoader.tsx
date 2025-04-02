@@ -55,7 +55,7 @@ const IntroLoader = ({ onComplete }: IntroLoaderProps) => {
               ease: [0.65, 0, 0.35, 1] 
             } 
           }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-b from-[#1a1a1a] to-[#0f1922]"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-ocean-blue"
         >
           <div className="relative z-10">
             {/* Background elements */}
@@ -69,7 +69,7 @@ const IntroLoader = ({ onComplete }: IntroLoaderProps) => {
                 duration: 1.5,
                 ease: [0.25, 0.1, 0.25, 1]
               }}
-              className="absolute -inset-40 rounded-full bg-gradient-to-tr from-[#62c7fc]/5 to-[#4ba5dc]/10 blur-3xl"
+              className="absolute -inset-40 rounded-full bg-white/5 blur-3xl"
             />
 
             <motion.div
@@ -91,7 +91,7 @@ const IntroLoader = ({ onComplete }: IntroLoaderProps) => {
                 <div className={`relative ${isMobile ? 'w-16 h-16' : 'w-24 h-24'} flex items-center justify-center`}>
                   {/* Ripple effects */}
                   <motion.div 
-                    className="absolute inset-0 rounded-full bg-[#62c7fc]/30"
+                    className="absolute inset-0 rounded-full bg-white/30"
                     initial={{ scale: 0.6, opacity: 0.8 }}
                     animate={{ 
                       scale: [0.6, 1.4], 
@@ -106,7 +106,7 @@ const IntroLoader = ({ onComplete }: IntroLoaderProps) => {
                   />
                   
                   <motion.div 
-                    className="absolute inset-0 rounded-full bg-[#62c7fc]/20"
+                    className="absolute inset-0 rounded-full bg-white/20"
                     initial={{ scale: 0.6, opacity: 0.8 }}
                     animate={{ 
                       scale: [0.6, 1.6], 

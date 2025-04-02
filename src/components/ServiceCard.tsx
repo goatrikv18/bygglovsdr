@@ -1,4 +1,3 @@
-
 import { ReactNode } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -15,20 +14,22 @@ const ServiceCard = ({ title, description, icon, link }: ServiceCardProps) => {
   return (
     <motion.div 
       className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 h-full flex flex-col"
-      whileHover={{ y: -5, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
+      whileHover={{ y: -8, boxShadow: '0 25px 30px -12px rgba(0, 0, 0, 0.15)' }}
       transition={{ duration: 0.3 }}
     >
-      <div className="rounded-full bg-gray-50 w-14 h-14 flex items-center justify-center mb-6 text-[#62c7fc]">
-        {icon}
+      <div className="rounded-xl bg-[#f0f7ff] w-20 h-20 flex items-center justify-center mb-6 text-[#62c7fc]">
+        <div className="text-3xl">
+          {icon}
+        </div>
       </div>
       
-      <h3 className="font-display text-xl font-semibold mb-4">{title}</h3>
+      <h3 className="font-display text-2xl font-semibold mb-4">{title}</h3>
       
-      <p className="text-gray-600 mb-6 flex-grow">{description}</p>
+      <p className="text-gray-600 mb-6 flex-grow text-base">{description}</p>
       
       <Link 
         to={link} 
-        className="inline-flex items-center text-[#62c7fc] font-medium group mt-auto"
+        className="inline-flex items-center text-[#FF6B35] font-medium group mt-auto"
       >
         <span>Läs mer</span>
         <motion.div

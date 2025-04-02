@@ -1,4 +1,4 @@
-  import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Menu,
@@ -142,15 +142,24 @@ const Navbar = () => {
 
       {/* Navbar positioned to the right */}
       <header className={`fixed top-0 w-full z-[9999] transition-all duration-300 ${scrolled ? 'py-2' : 'py-4'}`}>
-        <div className="flex items-center justify-end px-4 md:px-6">
+        <div className="flex items-center justify-between px-4 md:px-6">
+          {/* Logo on the left */}
+          <Link to="/" className="z-[9999]">
+            <img 
+              src={scrolled ? "/logo.svg" : "/logo_whitetext.svg"}
+              alt="Bygglovsexperten Logo" 
+              className={`transition-all duration-300 ${scrolled ? 'h-10' : 'h-12'}`} 
+            />
+          </Link>
+          
           {/* Desktop navigation - pill shape */}
           <nav className="hidden md:block">
-            <div className={`${scrolled ? 'bg-white shadow-md' : 'bg-white/10 backdrop-blur-sm'} rounded-full`}>
+            <div className={`${scrolled ? 'bg-ocean-blue shadow-md' : 'bg-white/10 backdrop-blur-sm'} rounded-full`}>
               <ul className="flex items-center">
                 {/* Tjänster dropdown */}
                 <li className="relative dropdown-container">
                   <button
-                    className={`flex items-center gap-1 px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium`}
+                    className={`flex items-center gap-1 px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-base font-medium`}
                   >
                     <span>Tjänster</span>
                     <ChevronDown size={14} className="chevron-icon" />
@@ -191,7 +200,7 @@ const Navbar = () => {
                 {/* Priser dropdown */}
                 <li className="relative dropdown-container">
                   <button
-                    className={`flex items-center gap-1 px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium`}
+                    className={`flex items-center gap-1 px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-base font-medium`}
                   >
                     <span>Priser</span>
                     <ChevronDown size={14} className="chevron-icon" />
@@ -233,7 +242,7 @@ const Navbar = () => {
                 <li>
                   <Link 
                     to="/projekt" 
-                    className={`px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium block`}
+                    className={`px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-base font-medium block`}
                   >
                     Projekt
                   </Link>
@@ -242,7 +251,7 @@ const Navbar = () => {
                 <li>
                   <Link 
                     to="/kunder" 
-                    className={`px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium block`}
+                    className={`px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-base font-medium block`}
                   >
                     Kunder
                   </Link>
@@ -251,7 +260,7 @@ const Navbar = () => {
                 {/* Kontakt dropdown */}
                 <li className="relative dropdown-container">
                   <button
-                    className={`flex items-center gap-1 px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-sm font-medium`}
+                    className={`flex items-center gap-1 px-4 py-2 ${scrolled ? 'text-gray-700 hover:text-[#62c7fc]' : 'text-white hover:text-white/80'} text-base font-medium`}
                   >
                     <span>Kontakt</span>
                     <ChevronDown size={14} className="chevron-icon" />
@@ -283,7 +292,7 @@ const Navbar = () => {
                 <li>
                   <a
                     href="tel:0104051000"
-                    className={`${scrolled ? 'bg-[#62c7fc] text-white' : 'bg-white text-[#62c7fc]'} hover:bg-[#4ba5dc] hover:text-white px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-1 hover:shadow-md text-sm font-medium ml-2 mr-0`}
+                    className="bg-[#FF6B35] text-white hover:bg-[#e55b2a] px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-1 hover:shadow-md text-base font-medium ml-2 mr-0"
                   >
                     <Phone size={14} />
                     <span>010-405 10 00</span>
@@ -436,7 +445,7 @@ const Navbar = () => {
                 <li className="pt-3">
                   <a
                     href="tel:0104051000"
-                    className="bg-[#62c7fc] hover:bg-[#4ba5dc] text-white py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 shadow-md w-full"
+                    className="bg-[#FF6B35] hover:bg-[#e55b2a] text-white py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 shadow-md w-full"
                     onClick={() => setIsOpen(false)}
                   >
                     <Phone size={18} />

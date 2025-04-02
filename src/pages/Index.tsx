@@ -10,6 +10,7 @@ import ParallaxHero from '@/components/ParallaxHero';
 import AnimatedSection from '@/components/AnimatedSection';
 import ScrollAnimations from '@/components/ScrollAnimations';
 import SlidingContentContainer from '@/components/SlidingContentContainer';
+import GoogleReviews from '@/components/GoogleReviews';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
@@ -55,50 +56,43 @@ const HomePage: React.FC<IndexProps> = ({ introComplete }) => {
       description:
         "Vi hjälper dig förverkliga din idé till verklighet, genom våra arkitektritningar/bygglovsritningar. Ingår allt du behöver, såsom situationsplan, fasadritning, planritning och sektionsritning. Som tack för ditt förtroende i oss, skickar vi in allt underlag till din kommun åt dig, så att du kan göra annat kul.",
       link: "/tjanster/bygglovsritningar",
-      icon: <FileText size={20} />,
+      icon: <FileText size={28} />,
     },
     {
       title: "Konstruktionsritningar",
       description:
         "Vi hjälper dig med alla dina konstruktionsritningar och beräkningar som din kommun och byggare behöver. Detaljritningar (till väggar, tak & grund), konstruktionsberäkningar, dimensionering, konstruktionsdokumentation och övriga konstruktionshandlingar.",
       link: "/tjanster/konstruktionsritningar",
-      icon: <Activity size={20} />,
+      icon: <Activity size={28} />,
     },
     {
       title: "Kontrollansvarig",
       description:
         "Våra kontrollansvariga som finns utspridda över hela landet kommer hjälpa dig i just din stad. Allt du behöver gällande ditt bygglov finns under ett och samma tak med oss på Bygglovsexperten.",
       link: "/tjanster/kontrollansvarig",
-      icon: <SquareCheck size={20} />,
+      icon: <SquareCheck size={28} />,
     },
     {
       title: "VVS-ritningar",
       description:
         "Vi hjälper dig med alla VVS-ritningar som krävs, såsom värme, ventilation och sanitet.",
       link: "/tjanster/vvs-ritningar",
-      icon: <Droplet size={20} />,
+      icon: <Droplet size={28} />,
     },
     {
       title: "Elritningar",
       description:
         "En elritning är en ritning som visar befintliga och/eller planerade elinstallationer i en bostad. Den visar antalet lampor, uttag och ledningar i hemmet. Den visar även bredbandsuttag och teleledningar samt elledningar till och från huset.",
       link: "/tjanster/elritningar",
-      icon: <Zap size={20} />,
+      icon: <Zap size={28} />,
     },
     {
       title: "Extra Tjänster",
       description:
         "Vi är Sveriges enda företag som erbjuder allt under ett och samma tak. Förutom ovan handlingar, så erbjuder vi även konstruktionsdokumentation, dimensioneringskontroll, energiberäkning, brandskyddsbeskrivning och fuktskyddsbeskrivning.",
       link: "/tjanster/extra-tjanster",
-      icon: <Award size={20} />,
+      icon: <Award size={28} />,
     },
-    {
-      title: "Bygg",
-      description:
-        "Vi har nu tagit steget och blir det första svenska företaget som erbjuder dig allt från bygglovsritningar, konstruktionsritningar, kontrollansvarig till byggare, allt under ett och samma tak. I samarbete med Dryft hjälper vi dig att förverkliga dina byggdrömmar på riktigt. Dryft har snickare, elektriker, rörmokare, målare och plattsättare - alla anställda på Dryft med kollektivavtal - och är redo att hjälpa dig.",
-      link: "/tjanster/bygg",
-      icon: <Award size={20} />,
-    }
   ];
 
   const priceItems = [
@@ -207,7 +201,7 @@ const HomePage: React.FC<IndexProps> = ({ introComplete }) => {
   ];
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden bg-ocean-blue">
       {/* Initialize scroll animations */}
       <ScrollAnimations />
       
@@ -231,118 +225,194 @@ const HomePage: React.FC<IndexProps> = ({ introComplete }) => {
             >
               <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
               <div className="w-full max-w-[1800px] mx-auto relative z-10">
-                <div className="mb-12 ml-8 md:ml-12">
+                <div className="mb-12 text-center">
                   <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">TJÄNSTER</h2>
-                  <h3 className="text-2xl md:text-3xl font-bold">Våra Tjänster</h3>
+                  
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-8 md:mx-12">
                   {services.map((service, index) => (
-                    <div 
-                      key={index} 
-                      className={`relative ${index % 2 === 0 ? 'md:pr-4' : 'md:pl-4'}`}
-                    >
-                      <Link
-                        to={service.link}
-                        className="group flex items-center justify-between py-7 px-8 md:px-12 border-t border-gray-100 hover:bg-gray-50 transition-all duration-300 h-full"
-                      >
-                        <motion.div 
-                          className="flex items-center space-x-5"
-                          whileHover={{ x: 5 }}
-                          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                        >
-                          <div className="text-[#62c7fc] flex-shrink-0">
-                            {service.icon}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="text-lg md:text-xl font-medium text-gray-800 mb-0 group-hover:text-[#62c7fc] transition-colors duration-300">
-                              {service.title}
-                            </h3>
-                            <div className="overflow-hidden transition-all duration-300 max-h-0 group-hover:max-h-20 opacity-0 group-hover:opacity-100 group-hover:mt-2">
-                              <p className="text-gray-600 text-sm leading-relaxed line-clamp-2 pr-4">
-                                {service.description}
-                              </p>
-                            </div>
-                          </div>
-                        </motion.div>
-                        
-                        <div className="flex-shrink-0 flex items-center relative">
-                          <motion.div
-                            className="text-[#62c7fc] transform transition-all duration-300"
-                            initial="default"
-                            whileHover="hover"
-                            variants={{
-                              default: { opacity: 1 },
-                              hover: { opacity: 0, transition: { duration: 0.2 } }
-                            }}
-                          >
-                            <ArrowUpRight size={22} />
-                          </motion.div>
-                          <motion.div
-                            className="text-[#62c7fc] transform transition-all duration-300 absolute"
-                            initial="default"
-                            whileHover="hover"
-                            variants={{
-                              default: { opacity: 0, x: -5 },
-                              hover: { opacity: 1, x: 0, transition: { duration: 0.2 } }
-                            }}
-                          >
-                            <ChevronRight size={22} />
-                          </motion.div>
-                        </div>
-                      </Link>
-                    </div>
+                    <ServiceCard
+                      key={index}
+                      title={service.title}
+                      description={service.description}
+                      icon={service.icon}
+                      link={service.link}
+                    />
                   ))}
                 </div>
               </div>
             </motion.div>
           </section>
 
-          {/* Divider Section with Parallax Effect */}
-          <section className="h-96 relative overflow-hidden z-10 rounded-b-[40px] shadow-lg mt-[-2px] bg-white">
-            <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ 
-                backgroundImage: 'url(https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?ixlib=rb-4.0.3&auto=format&fit=crop&q=80)',
-                transform: 'translateZ(0)'
-              }}
-            >
-              <div className="absolute inset-0 bg-[#62c7fc]/50"></div>
-              <div className="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-            </div>
-            <div className="container mx-auto px-4 h-full flex items-center justify-center relative z-10">
-              <div className="w-full max-w-[1800px] mx-auto">
-                <div className="text-center text-white gsap-reveal-scale max-w-3xl">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-6">Vi hjälper dig hela vägen</h2>
-                  <p className="text-xl md:text-2xl mb-8">Från första idé till godkänt bygglov</p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a 
-                      href="tel:0104051000" 
-                      className="button-cta bg-white hover:bg-gray-100 text-gray-900 transform hover:-translate-y-1 hover:shadow-xl"
+          {/* Customer Promises Section */}
+          <section className="py-20 bg-[#002e65] relative overflow-hidden z-10 mt-[-2px]">
+            <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            <div className="w-full max-w-[1800px] mx-auto relative z-10 px-4">
+              <AnimatedSection>
+                <div className="mb-12 text-center">
+                  <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">VÅRA KUNDLÖFTEN</h2>
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Våra kundlöften</h3>
+                </div>
+              </AnimatedSection>
+              
+              <div className="max-w-6xl mx-auto px-4">
+                <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10">
+                  <div className="w-full lg:w-1/2">
+                    <div className="mb-8">
+                      <p className="text-lg text-white/90 mb-6">
+                        Vi på Bygglovsexperten fokuserar <span className="font-bold text-[#62c7fc]">110%</span> på service och det viktigaste för vårt team och
+                        arkitekter/konstruktörer är att <span className="italic">överleverera</span> och att du som kund ska känna en 
+                        <span className="font-bold text-[#FF6B35]"> wooooow-känsla</span> när vi är klara med ritningarna.
+                      </p>
+                      
+                      <Link 
+                        to="/kontakt" 
+                        className="inline-flex items-center justify-center bg-[#62c7fc] hover:bg-[#4ba5dc] text-white px-6 py-3 rounded-full font-medium transition-all duration-300 shadow-md"
+                      >
+                        KONTAKTA OSS
+                      </Link>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      {[
+                        "Vi hjälper dig som kund i hela Sverige och alla dess 290 kommuner.",
+                        "Garanterar dig beviljat bygglov!",
+                        "Vi jobbar enbart med fasta priser på alla ritningar och tjänster.",
+                        "Alla ritningar utförs av våra certifierade arkitekter & konstruktörer.",
+                        "Garanterar dig bäst pris i Sverige genom vår prisgaranti.",
+                        "Du kan känna dig trygg, vi har alla ansvarsförsäkringar som krävs.",
+                        "Personlig service, du får en projektledare som hjälper dig med allt!"
+                      ].map((promise, index) => (
+                        <motion.div 
+                          key={index}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.5, delay: 0.1 * index }}
+                          className="flex items-start gap-3"
+                        >
+                          <div className="rounded-full bg-[#62c7fc] p-1 flex-shrink-0 mt-1">
+                            <div className="w-3 h-3 rounded-full bg-[#62c7fc]"></div>
+                          </div>
+                          <p className="text-white">{promise}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="w-full lg:w-1/2 flex justify-center">
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.7 }}
+                      className="relative max-w-full"
                     >
-                      <Phone className="w-5 h-5" />
-                      <span>Ring oss</span>
-                    </a>
-                    <Link 
-                      to="/kontakt" 
-                      className="button-cta bg-[#62c7fc] hover:bg-[#4ba5dc] text-white transform hover:-translate-y-1 hover:shadow-xl"
-                    >
-                      <Calendar className="w-5 h-5" />
-                      <span>Boka ett möte</span>
-                    </Link>
+                      <img 
+                        src="/images/sweden.svg"
+                        alt="Bygglovsexperten hjälper dig i hela Sverige" 
+                        className="max-w-full h-auto w-[280px] md:w-[280px] lg:w-[280px]"
+                      />
+                      
+                      {/* Map location dots with animations */}
+                      {[
+                        { top: '8%', left: '45%' },
+                        { top: '4%', left: '75%' },
+                        { top: '35%', left: '50%' },
+                        { top: '40%', left: '20%' },
+                        { top: '67%', left: '40%' },
+                        { top: '72%', left: '1%' },
+                        { top: '81%', left: '20%' }
+                      ].map((position, index) => (
+                        <motion.div
+                          key={index}
+                          className="absolute transform -translate-x-1/2 -translate-y-1/2"
+                          style={position}
+                          initial={{ opacity: 0, scale: 0 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ 
+                            duration: 0.5, 
+                            delay: 0.8 + (index * 0.1),
+                            type: "spring",
+                            stiffness: 200
+                          }}
+                        >
+                          {/* Streck ner mot kartan */}
+                          <div className="absolute left-1/2 top-[95%] w-[1px] h-[15px] bg-white -translate-x-1/2 rounded-full shadow-md"></div>
+                          <div className="absolute left-1/2 top-[95%] w-[5px] h-[5px] bg-white -translate-x-1/2 translate-y-[15px] rounded-full shadow-sm"></div>
+                          
+                          {/* Cirkeln med husikon */}
+                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center shadow-lg">
+                            <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center">
+                              <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
+                                <path d="M2 22H22" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round"/>
+                                <path d="M3 22V13L12 2L21 13V22" stroke="#62c7fc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M9 22V16H15V22" fill="#FF6B35"/>
+                                <path d="M9 22V16H15V22" stroke="#FF6B35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </motion.div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
+          {/* Projects Section with Parallax Effect */}
+          <section className="py-20 bg-[#f5faff] relative z-10 overflow-hidden rounded-t-[40px] mt-[-40px]">
+            <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            <div className="w-full max-w-[1800px] mx-auto relative z-10 px-4 pt-10">
+              <div className="mb-8 text-center">
+                <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">PROJEKT</h2>
+                <h3 className="text-2xl md:text-3xl font-bold">Ett urval av tidigare projekt</h3>
+                <p className="text-gray-600 mt-2 max-w-2xl">Ta en titt på några av våra projekt och se hur vi förvandlar idéer till verklighet.</p>
+              </div>
+              
+              <div className="mx-8 md:mx-12">
+                <ParallaxProjects />
+              </div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white"></div>
+          </section>
+
+          {/* Process Steps Section */}
+          <section className="py-20 bg-white relative z-10 overflow-hidden">
+            <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/arches.png')]"></div>
+            <div className="w-full max-w-[1800px] mx-auto relative z-10 px-4">
+              <div className="mb-8 text-center">
+                <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">PROCESS</h2>
+                <p className="text-gray-600 mt-2 max-w-2xl mx-auto">En smidig och effektiv process från start till mål.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mx-8 md:mx-12">
+                {processSteps.map((step, index) => (
+                  <div key={index} className="relative">
+                    <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 h-full">
+                      <div className="flex items-start mb-4">
+                        <div className="h-14 w-14 rounded-lg bg-[#eef7ff] flex items-center justify-center mr-4 flex-shrink-0">
+                          <div className="text-[#62c7fc]">{step.icon}</div>
+                        </div>
+                        <div className="h-14 flex items-center">
+                          <span className="text-4xl font-bold text-[#62c7fc]/20">0{index + 1}</span>
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                      <p className="text-gray-600">{step.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* About Us Section with Scroll-Activated Brightness Effect */}
-          <section className="py-20 bg-[#3a3a3a] relative overflow-hidden">
+          <section className="py-20 bg-[#3a3a3a] relative overflow-hidden z-10">
             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/diagonal-noise.png')]"></div>
             <div className="w-full max-w-[1800px] mx-auto relative z-10 px-4">
-              <div className="mb-12 ml-8 md:ml-12">
+              <div className="mb-8 text-center">
                 <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">OM OSS</h2>
-                <h3 className="text-2xl md:text-3xl font-bold text-white">Bygglovsexperten</h3>
               </div>
               
               <div className="relative ml-8 md:ml-12 mr-8 md:mr-12">
@@ -406,65 +476,15 @@ const HomePage: React.FC<IndexProps> = ({ introComplete }) => {
             </div>
           </section>
 
-          {/* Projects Section with Parallax Effect */}
-          <section className="py-20 bg-[#f5faff] relative z-10 overflow-hidden">
-            <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-            <div className="w-full max-w-[1800px] mx-auto relative z-10 px-4">
-              <div className="mb-8 ml-8 md:ml-12">
-                <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">PROJEKT</h2>
-                <h3 className="text-2xl md:text-3xl font-bold">Ett urval av tidigare projekt</h3>
-                <p className="text-gray-600 mt-2 max-w-2xl">Ta en titt på några av våra projekt och se hur vi förvandlar idéer till verklighet.</p>
-              </div>
-              
-              <div className="mx-8 md:mx-12">
-                <ParallaxProjects />
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white"></div>
-          </section>
-
-          {/* Process Steps Section */}
-          <section className="py-20 bg-white relative z-10 overflow-hidden">
-            <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/arches.png')]"></div>
-            <div className="w-full max-w-[1800px] mx-auto relative z-10 px-4">
-              <div className="mb-12 ml-8 md:ml-12">
-                <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">PROCESS</h2>
-                <h3 className="text-2xl md:text-3xl font-bold">Vår process</h3>
-                <p className="text-gray-600 mt-2 max-w-2xl">En smidig och effektiv process från start till mål.</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mx-8 md:mx-12">
-                {processSteps.map((step, index) => (
-                  <div key={index} className="relative">
-                    <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 h-full">
-                      <div className="flex items-start mb-4">
-                        <div className="h-14 w-14 rounded-lg bg-[#eef7ff] flex items-center justify-center mr-4 flex-shrink-0">
-                          <div className="text-[#62c7fc]">{step.icon}</div>
-                        </div>
-                        <div className="h-14 flex items-center">
-                          <span className="text-4xl font-bold text-[#62c7fc]/20">0{index + 1}</span>
-                        </div>
-                      </div>
-                      <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                      <p className="text-gray-600">{step.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-[#eef7ff]"></div>
-          </section>
-
           {/* Price Section */}
-          <section className="py-16 bg-[#eef7ff] relative z-10 overflow-hidden">
+          <section id="priser" className="py-16 bg-[#eef7ff] relative z-10 overflow-hidden">
             <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-[#62c7fc]/20 via-transparent to-[#62c7fc]/10"></div>
             <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')]"></div>
             
             <div className="w-full max-w-[1800px] mx-auto relative z-10 px-4">
-              <div className="mb-8 ml-8 md:ml-12">
+              <div className="mb-8 text-center">
                 <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">PRISER</h2>
-                <h3 className="text-2xl md:text-3xl font-bold">Våra Priser</h3>
-                <p className="text-gray-600 mt-2 max-w-2xl">Vi erbjuder konkurrenskraftiga priser med fokus på kvalitet och service. Våra priser är transparenta utan dolda kostnader.</p>
+
               </div>
 
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-8 md:mx-12">
@@ -499,7 +519,7 @@ const HomePage: React.FC<IndexProps> = ({ introComplete }) => {
                       <div className="px-5 pb-5 pt-0">
                         <Link 
                           to="/kontakt" 
-                          className="w-full inline-flex items-center justify-center px-4 py-2.5 border border-transparent rounded-full text-sm font-medium text-white bg-[#62c7fc] hover:bg-[#4ba5dc] transition-colors duration-300 shadow-sm"
+                          className="w-full inline-flex items-center justify-center px-4 py-2.5 border border-transparent rounded-full text-sm font-medium text-white bg-[#FF6B35] hover:bg-[#e55b2a] transition-colors duration-300 shadow-sm"
                         >
                           Begär offert
                         </Link>
@@ -519,101 +539,17 @@ const HomePage: React.FC<IndexProps> = ({ introComplete }) => {
                 </a>
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white"></div>
           </section>
 
-          {/* Testimonials Section */}
-          <section className="py-16 bg-white relative z-10 overflow-hidden">
-            <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/lined-paper.png')]"></div>
-            <div className="w-full max-w-[1800px] mx-auto relative z-10 px-4">
-              <div className="mb-8 ml-8 md:ml-12">
-                <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">REKOMMENDATIONER</h2>
-                <h3 className="text-2xl md:text-3xl font-bold">Vad våra kunder säger</h3>
-                <p className="text-gray-600 mt-2 max-w-2xl">Vi på Bygglovsexperten är stolta över att ha hjälpt hundratals kunder att förverkliga sina byggprojekt.</p>
-              </div>
-              
-              <div className="flex justify-center mb-8 mx-8 md:mx-12">
-                <div className="bg-white rounded-full py-1.5 px-4 flex items-center shadow-md border border-gray-100">
-                  <div className="flex">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="ml-2 text-gray-700 text-xs">
-                    <span className="font-semibold">5.0 utmärkt</span> • Baserat på 194 omdömen
-                  </p>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mx-8 md:mx-12">
-                {reviews.map((review, index) => (
-                  <div 
-                    key={index} 
-                    className="bg-white rounded-xl shadow-md hover:shadow-lg overflow-hidden group hover:-translate-y-1.5 transition-all duration-300 border border-[#d9ebfd] flex flex-col h-full"
-                  >
-                    <div className="p-4 flex-grow">
-                      <div className="flex justify-between items-start mb-3">
-                        <div>
-                          <h4 className="font-semibold text-base text-gray-800">{review.name}</h4>
-                          <div className="flex items-center mt-0.5">
-                            <div className="w-4 h-4 rounded-full bg-[#d9ebfd] flex items-center justify-center mr-1">
-                              <CheckCircle size={9} className="text-[#62c7fc]" />
-                            </div>
-                            <p className="text-xs text-gray-500">Verifierad kund</p>
-                          </div>
-                        </div>
-                        <div className="flex space-x-0.5">
-                          {Array.from({ length: review.rating }).map((_, i) => (
-                            <Star key={i} className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <p className="text-gray-600 text-sm leading-relaxed mb-2 italic">
-                        <span className="text-[#62c7fc]/30 text-lg font-serif">"</span>
-                        {review.content}
-                        <span className="text-[#62c7fc]/30 text-lg font-serif">"</span>
-                      </p>
-                    </div>
-                    
-                    <div className="py-2 px-4 border-t border-[#d9ebfd] bg-gradient-to-r from-[#eef7ff] to-white mt-auto">
-                      <div className="flex items-center justify-between">
-                        <Link to={`/rekommendationer/${review.name.toLowerCase().replace(/\s+/g, '-')}`} className="flex items-center text-[#62c7fc] text-xs group-hover:underline">
-                          <span>Läs mer</span>
-                          <ChevronRight size={12} className="ml-1" />
-                        </Link>
-                        <div className="inline-flex items-center space-x-1 text-gray-500 text-xs">
-                          <Calendar className="w-3 h-3" />
-                          <span>{new Date(review.date).toLocaleDateString('sv-SE').split('-').slice(0, 2).join('-')}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="mt-8 flex justify-center">
-                <Link 
-                  to="/rekommendationer" 
-                  className="inline-flex items-center justify-center py-2 px-5 border border-gray-300 rounded-full bg-white hover:bg-gray-50 transition-all duration-300 shadow-sm text-sm"
-                >
-                  <span className="mr-1.5">Läs fler omdömen</span>
-                  <ChevronRight size={14} />
-                </Link>
-              </div>
-            </div>
-            {/* Gradient overlay för övergång till nästa sektion */}
-            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-[#fafcff]"></div>
-          </section>
+          {/* Google Reviews Section */}
+          <GoogleReviews />
 
           {/* FAQ Section - with rounded top corners and adjustable z-index */}
           <section className="relative z-20 bg-[#fafcff] rounded-t-[40px] mt-[-40px] py-16 shadow-lg overflow-hidden">
             <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/arches.png')]"></div>
             <div className="w-full max-w-[1800px] mx-auto relative z-10 pt-8">
-              <div className="mb-8 ml-8 md:ml-12">
+              <div className="mb-8 text-center">
                 <h2 className="text-[#62c7fc] text-sm font-medium uppercase tracking-wider mb-2">FRÅGOR & SVAR</h2>
-                <h3 className="text-2xl md:text-3xl font-bold">Vanliga frågor</h3>
-                <p className="text-gray-600 mt-2 max-w-2xl">Här hittar du svar på de vanligaste frågorna kring våra tjänster.</p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2">
@@ -708,7 +644,7 @@ const HomePage: React.FC<IndexProps> = ({ introComplete }) => {
                 <div className="flex flex-col space-y-4 md:min-w-[260px]">
                   <a 
                     href="tel:0104051000" 
-                    className="button-cta bg-white hover:bg-gray-100 text-gray-900 transform hover:-translate-y-1 hover:shadow-xl w-full justify-center"
+                    className="button-cta bg-[#FF6B35] hover:bg-[#e55b2a] text-white transform hover:-translate-y-1 hover:shadow-xl w-full justify-center"
                   >
                     <Phone className="w-5 h-5" />
                     <span>Ring oss nu</span>
